@@ -1,8 +1,8 @@
 package com.vinicius.os.DTO;
 
-import com.vinicius.os.domain.Tecnico;
+import com.vinicius.os.domain.Cliente;
 
-public class TecnicoLiteDTO {
+public class ClienteLiteDTO {
 
     private Integer id;
 
@@ -10,13 +10,13 @@ public class TecnicoLiteDTO {
 
     private String telefone;
 
-    public TecnicoLiteDTO() {
+    public ClienteLiteDTO() {
     }
 
-    public TecnicoLiteDTO(Tecnico tecnico){
-        this.setId(tecnico.getId());
-        this.setNome(tecnico.getNome());
-        this.setTelefone(tecnico.getTelefone());
+    public ClienteLiteDTO(Cliente cliente){
+        this.setId(cliente.getId());
+        this.setNome(cliente.getNome());
+        this.setTelefone(cliente.getTelefone());
     }
 
     public Integer getId() {

@@ -2,15 +2,11 @@ package com.vinicius.os.controllers;
 
 import com.vinicius.os.DTO.TecnicoFullDTO;
 import com.vinicius.os.DTO.TecnicoLiteDTO;
-import com.vinicius.os.domain.Tecnico;
 import com.vinicius.os.services.TecnicoService;
-import net.bytebuddy.asm.Advice;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
 import java.net.URI;

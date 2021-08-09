@@ -1,6 +1,7 @@
 package com.vinicius.os.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vinicius.os.DTO.ClienteFullDTO;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -21,11 +22,23 @@ public class Cliente extends Pessoa {
         super();
     }
 
+    public Cliente(ClienteFullDTO cliente) {
+        this.setCpf(cliente.getCpf());
+        this.setTelefone(cliente.getTelefone());
+        this.setNome(cliente.getNome());
+    }
+
     public List<OrdemServico> getServicos() {
         return servicos;
     }
 
     public void setServicos(List<OrdemServico> servicos) {
         this.servicos = servicos;
+    }
+
+    public void update(ClienteFullDTO clienteDTO) {
+        this.setCpf(clienteDTO.getCpf());
+        this.setTelefone(clienteDTO.getTelefone());
+        this.setNome(clienteDTO.getNome());
     }
 }
