@@ -1,20 +1,20 @@
-package com.vinicius.os.domain;
+package com.vinicius.os.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.vinicius.os.DTO.ClienteFullDTO;
-import com.vinicius.os.DTO.OSLiteDTO;
+import com.vinicius.os.domain.OrdemServico;
 import com.vinicius.os.enums.Prioridade;
 import com.vinicius.os.enums.Status;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-@Entity
-public class OrdemServico {
+public class OSLiteDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
@@ -31,27 +31,22 @@ public class OrdemServico {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "tecnico_id")
-    private Tecnico tecnico;
+    private TecnicoLiteDTO tecnico;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    private ClienteLiteDTO cliente;
 
-    public OrdemServico(Integer id, LocalDateTime dataAbertura, LocalDateTime dataEncerramento, Prioridade prioridade, String observacoes, Status status, Tecnico tecnico, Cliente cliente) {
-        this.id = id;
-        this.dataAbertura = dataAbertura;
-        this.dataEncerramento = dataEncerramento;
-        this.prioridade = prioridade;
-        this.observacoes = observacoes;
-        this.status = status;
-        this.tecnico = tecnico;
-        this.cliente = cliente;
+    public OSLiteDTO() {
     }
 
-    public OrdemServico() {
-        super();
+    public OSLiteDTO(OrdemServico ordemServico) {
+        this.setId(ordemServico.getId());
+        this.setDataAbertura(ordemServico.getDataAbertura());
+        this.setDataEncerramento(ordemServico.getDataEncerramento());
+        this.setPrioridade(ordemServico.getPrioridade());
+        this.setObservacoes(ordemServico.getObservacoes());
+        this.setStatus(ordemServico.getStatus());
+        this.setCliente(new ClienteLiteDTO(ordemServico.getCliente()));
+        this.setTecnico(new TecnicoLiteDTO(ordemServico.getTecnico()));
     }
 
     public Integer getId() {
@@ -100,39 +95,21 @@ public class OrdemServico {
 
     public void setStatus(Status status) {
         this.status = status;
-        if (status.equals(Status.ENCERRADO)) {
-            this.setDataEncerramento(LocalDateTime.now());
-        }
     }
 
-    public Tecnico getTecnico() {
+    public TecnicoLiteDTO getTecnico() {
         return tecnico;
     }
 
-    public void setTecnico(Tecnico tecnico) {
+    public void setTecnico(TecnicoLiteDTO tecnico) {
         this.tecnico = tecnico;
     }
 
-    public Cliente getCliente() {
+    public ClienteLiteDTO getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(ClienteLiteDTO cliente) {
         this.cliente = cliente;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OrdemServico that = (OrdemServico) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-
 }
